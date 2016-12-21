@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>年月选择控件</title>
+    <style>
+        .SMonth{
+            position: relative;
+        }
+        .SMonth .date-box{
+            display: none;
+            width: 230px;
+            position: absolute;
+            box-shadow: 0px 5px 15px -5px rgba(0, 0, 0, 0.506);
+            background: #FFFFFF;
+            border-bottom: 1px solid #BBBBBB;
+            border-left: 1px solid #CCCCCC;
+            border-right: 1px solid #CCCCCC;
+            border-top: 1px solid #CCCCCC;
+            color: #333333;
+            padding: 8px;
+            z-index: 9999;
+            box-sizing: border-box;
+        }
+        .SMonth .xdsoft_prev,.SMonth .xdsoft_next{
+            background-color: transparent;
+            background-repeat: no-repeat;
+            border: 0px none currentColor;
+            cursor: pointer;
+            display: block;
+            height: 30px;
+            opacity: 0.5;
+            outline: medium none currentColor;
+            overflow: hidden;
+            padding: 0px;
+            position: relative;
+            text-indent: 100%;
+            white-space: nowrap;
+            width: 20px;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAAAeCAYAAACsYQl4AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDozQjRCQjRGREU4MkNFMzExQjRDQkIyRDJDOTdBRUI1MCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpCQjg0OUYyNTZDODAxMUUzQjMwM0IwMERBNUU0ODQ5NSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpCQjg0OUYyNDZDODAxMUUzQjMwM0IwMERBNUU0ODQ5NSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkI5NzE3MjFBN0E2Q0UzMTFBQjJEQjgzMDk5RTNBNTdBIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjNCNEJCNEZERTgyQ0UzMTFCNENCQjJEMkM5N0FFQjUwIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+aQvATgAAAfVJREFUeNrsmr1OwzAQxzGtkPjYEAuvVGAvfQIGRKADE49gdLwDDwBiZ2RhQUKwICQkWLsgFiRQuIBTucFJ/XFp4+hO+quqnZ4uvzj2nV2RpukCW/22yAgYNINmc7du7DcghCjrkqgOKjF1znpt6rZ0AGWQj7TvCU8d9UM+QAGDrhdyc2Bnc1WVVPBev9V8lBnY+rDwncWZThG4xk4lmxtJy2AHgoY/FySgbSBPwPZ8mEXbQx3aDERb0EbYAYFC7pcAtAvkMWwC0D3NX58S9D/YnoGC7nPWr3Dg9JTbtuHhDShBT8D2CBSK/iIEvVXxpuxSgh7DdgwUTL4iA92zmJb6lKB/YTsECmV+IgK947AGDIqgQ/LojsO135Hn51l2cWlov0JdGNrPUceueXRwilSVgkUyom9Rd6gbLfYTDeO+1v6orn0InTogYDGUkYLO3/wc9BdqqTCKP1Tfi+oTIaCBIL2TES+GTyruT9S61p6BHam+99DFEAgLFklYsIBHwSI9QY80H5ta+1rB/6ovaKihBJeEJbgLbBlQgl+j3lDPqA2tfQV1j3pVn8s+oKHGTSVJ+FqDLeR5bCqJ2E/BCycsoLZETXaKGs7rhKVt+9HZScrZNMi88V8P7LlDbvOZYaJVpMMmBCT4n0o8dTBoNgbdWPsRYACs3r7XyNfbnAAAAABJRU5ErkJggg==');
+        }
+        .SMonth .xdsoft_prev {
+            float: left;
+            background-position: -20px 0px;
+        }
+        .SMonth .xdsoft_next {
+            float: right;
+            background-position: 0px 0px;
+        }
+        .SMonth .y{
+            margin: 5px 0px 0 62px;
+            float: left;
+        }
+        .SMonth .month-table{
+            margin-top: 40px;
+            table-layout: fixed;
+            width: 100%;
+            font-size: 12px;
+            margin: -1px;
+            border-collapse: collapse;
+        }
+        .SMonth .month-table td {
+            text-align: center;
+            padding: 10px 3px;
+            cursor: pointer;
+        }
+        .SMonth .cell {
+            width: 48px;
+            height: 32px;
+            display: block;
+            line-height: 32px;
+            color: #475669;
+            text-decoration: none;
+        }
+        .SMonth .cell:hover {
+            background-color: #e5e9f2;
+        }
+        .SMonth .active,.SMonth .active:hover{
+            color: #fff;
+            background-color: #20a0ff;
+        }
+    </style>
+</head>
+<body>
+
+<br><br><br>
+<div id="sm"></div>
+<script>
+    var SMonth = {
+        option: {"id": "", "year": new Date().getFullYear(), "month": new Date().getMonth()+1, 'linkSign':'-', 'inputClass':'','inputName':''},
+        moth:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+        config: function (op) {
+            for (var k in this.option) {
+                if (op[k])this.option[k] = op[k];
+            }
+            this.init();
+        },
+        init:function () {
+            var YMDom = document.getElementById(this.option.id);
+            YMDom.className = 'SMonth';
+            var Html = '';
+            Html += '<input class="'+this.option.inputClass+'" name="'+this.option.inputName+'" type="text" value="'+this.option.year+this.option.linkSign+this.option.month+'" />';
+            Html += '<div class="date-box">';
+            Html +=     '<button type="button" class="xdsoft_prev"></button>';
+            Html +=     '<div class="y">'+this.option.year+'年</div>';
+            Html +=     '<button type="button" class="xdsoft_next"></button>';
+            Html +=     '<table class="month-table">';
+            Html +=         '<tbody>';
+            for(var i = 0;i<3;i++){
+                Html += '<tr>';
+                for(var a = 1;a<=4;a++){
+                    if(this.option.month == a+i*4){
+                        Html += '<td><a class="cell active">'+this.moth[a+i*4-1]+'</a></td>';
+                    }else {
+                        Html += '<td><a class="cell">'+this.moth[a+i*4-1]+'</a></td>';
+                    }
+                }
+                Html += '</tr>';
+            }
+            Html +=         '</tbody>';
+            Html +=     '</table>';
+            Html += '</div>';
+            YMDom.innerHTML = Html;
+            this.interaction(YMDom);
+        },
+        interaction:function (YMDom) {
+            var YDom = YMDom.getElementsByClassName('y')[0];
+            var YBtnArrDom = YMDom.getElementsByTagName('button');
+            var ABtnArrDom = YMDom.getElementsByTagName('a');
+            var InputBtnDom = YMDom.getElementsByTagName('input')[0];
+            var frame = YMDom.getElementsByClassName('date-box')[0];
+            var Y = this.option.year;
+            var M = this.option.month;//记录上次月份
+            var linkSign = this.option.linkSign;
+            InputBtnDom.onclick = function () {
+                frame.style.display = 'block';
+            }
+            YBtnArrDom[0].onclick = function(){
+                Y--;
+                YDom.innerHTML = Y+'年';
+                InputBtnDom.value = Y+linkSign+getM(M);
+
+            }
+            YBtnArrDom[1].onclick = function(){
+                Y++;
+                YDom.innerHTML = Y+'年';
+                InputBtnDom.value = Y+linkSign+getM(M);
+            }
+
+            for (var i = 0 ; i <ABtnArrDom.length; i++) {
+                ABtnArrDom[i].index = i;
+                ABtnArrDom[i].onclick = function(){
+                    for (var i = 0 ; i <ABtnArrDom.length; i++) {
+                        ABtnArrDom[i].className = 'cell';
+                    }
+                    this.className = 'cell active';
+                    M = this.index+1;
+                    InputBtnDom.value = Y+linkSign+getM(M);
+                    setTimeout(function () {
+                        frame.style.display = 'none';
+                    },100)
+                }
+            }
+
+            function getM(m) {
+                if (m == null || m == 0){
+                    return '00';
+                }
+                if (m<10) {
+                    return '0'+m;
+                }
+                return m;
+            }
+        },
+    }
+    SMonth.config({
+        'id':'sm',
+        //'year':2016,
+        //'month':5,
+        //'linkSign':'/',
+        //'inputClass':'',
+        //'inputName':''
+    });
+</script>
+</body>
+</html>
