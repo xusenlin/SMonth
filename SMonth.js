@@ -47,7 +47,8 @@ var SMonth = {
         var Y = this.option.year;
         var M = this.option.month;//记录上次月份
         var linkSign = this.option.linkSign;
-        InputBtnDom.onclick = function () {
+        InputBtnDom.onclick = function (e) {
+            window.event? window.event.cancelBubble = true : e.stopPropagation();
             frame.style.display = 'block';
         }
         YBtnArrDom[0].onclick = function(){
@@ -76,7 +77,9 @@ var SMonth = {
                 },100)
             }
         }
-
+        frame.onclick = function (e) {
+            window.event? window.event.cancelBubble = true : e.stopPropagation();
+        }
         function getM(m) {
             if (m == null || m == 0){
                 return '00';
@@ -85,6 +88,12 @@ var SMonth = {
                 return '0'+m;
             }
             return m;
+        }
+        document.onclick = function () {
+            var frames = document.getElementsByClassName('date-box');
+            for (var i = 0;i<frames.length;i++){
+                frames[i].style.display = 'none';
+            }
         }
     },
 }
